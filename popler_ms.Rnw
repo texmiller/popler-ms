@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage[round]{natbib}
+\bibliographystyle{abbrvnat}
+\usepackage{graphicx}
+\geometry{a4paper}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+\usepackage[running]{lineno}
+\usepackage{setspace}
+\usepackage{courier}
+\doublespacing
+
+\title{\texttt{popler}: An R package for synthesis of population time series from long-term ecological research}
+\author[a,]{Aldo Compagnoni\thanks{email@aldo.edu}}
+\author[a]{Andrew J. Bibian}
+\author[a]{Brad M. Ochocki}
+\author[b]{Sam Levin}
+\author[c]{Margaret O'Brien}
+\author[d]{Kai Zhu}
+\author[a]{Tom E.X. Miller}
+
+\affil[a]{Department of BioSciences, Program in Ecology and Evolutionary Biology, Rice University, Houston, TX USA}
+\affil[b]{Sam's affiliation}
+\affil[c]{Margaret's affiliation}
+\affil[d]{Kai's affiliation}
+
+\renewcommand\Authands{ and }
+\date{Running headline: The \texttt{popler} database and R package}
+
+\begin{document}
+
+<<setup,echo=F,warning=F,error=F,message=F>>=
+#install.packages("devtools")
+#devtools::install_github("AldoCompagnoni/popler", build_vignettes=T, force=T)
+#install.packages("yaml")
+library(popler)
+library(knitr)
+opts_chunk$set(echo=F,warning=F,error=F,message=F)
+@
+
+\maketitle
+
+\newpage
+
+\section*{Abstract}
+%The Abstract must not exceed 350 words and should list the main results and conclusions, using simple, factual, numbered statements: Point 1: set the context for and purpose of the work; Point 2: indicate the approach and methods; Point 3: outline the main results; Point 4: identify the conclusions and the wider implications.
+\begin{enumerate}
+
+  \item Population dynamics has a central role in the historical and current development of both fundamental and applied ecological science. The nascent culture of open data promises to increase the value of population dynamics studies to the field of ecology. However, users interested in data synthesis using population data are stymied by the heterogeneity of the available datasets, and by how difficult it is to identify relevant datasets. 
+  
+  \item To obviate these issues, we built popler, a relational database that can accommodate the vast majority of population data under a common structure, without the need for aggregating raw observations. Such common structure allows the user to more easily identify, compare, and manipulate datasets. 
+  
+  \item Moreover, the availability of raw data confers maximum freedom when devising scientific analyses. We used popler to store population data originated by the United Stated Long Term Ecological Research (LTER) Network. 
+  
+  \item Finally, we developed an R package to explore and query this resource.
+  
+   \ldots
+   \end{enumerate}
+\section*{Keywords}
+
+\newpage
+\section*{Introduction}
+\linenumbers
+
+Population dynamics – changes in species’ abundance and composition through time and space – are central to ecology for both applied and fundamental reasons. Population studies are a standard tool in conservation \citep{Morris2002b}, particularly to perform risk assessment and viability analysis \citep{Beissinger2002}. However, population studies are also an integral part of fundamental ecological research. Populations are the building blocks of ecological dynamics at higher scales of organization, and examples abound showing how the study of population ecology improves understanding in evolution \citep{Metcalf2007}, community ecology \citep{Levine2009}, and ecosystem ecology \citep{Medvigy2009,Fisher2018}.
+
+Given their central role in ecology, studies of population dynamics will be an essential component in the advances allowed by the flourishing culture of open access and data synthesis. The increase in freely available ecological data sets is poised to change ecological science \citep{Laurance2016}. The rising focus on open data is clear in changing publishing standards, in the design of observational networks like the National Ecological Observatory Network \citep{schimel2007neon}, and in the online availability of previously proprietary data \citep{Kratz2003,Bechtold2005}. This deluge of open data holds tremendous promise to facilitate comparative analyses and to test the generality of ecological hypotheses. For population dynamics in particular, it is the increasing availability of long-term data that will likely yield the most substantial scientific advances. Long time series are required to detect trends in abundance \citep{Lindenmayer2012}, quantify temporal variance \citep{Compagnoni2016}, and identify endogenous \citep{Knape2012} or exogenous \citep{Knape2011,Hampton2013} drivers of population fluctuations.
+
+There is ample evidence demonstrating the importance of long-term data for population ecology to facilitate comparative and synthetic studies \citep{Lindenmayer2012,Giron-Nava2017}. To our knowledge, there is currently just one publicly accessible database focused on long-term population data. This is the Global Population Dynamics Database \citep[GPDD,][]{Inchausti2001}. The GPDD provides over 5000 time series of population size longer than 10 years for over 1800 animal species. This database has been powerfully leveraged for comparative analyses and syntheses \citep[e.g.,][]{Knape2012} but it has some important limitations. GPDD time series are not spatially replicated – there is one observation of population size or density temporal replicate, with no estimate of uncertainty – making it difficult or impossible to isolate different sources of variability and requiring the assumption that population size is known without error. While this database has proven useful in particular contexts, retaining information on spatial replicates would expand the variety of research questions that can be asked and improve estimation of uncertainty in the answers.
+
+Even when databases are publicly available, understanding their content is a non-trivial task that can discourage potential users. Ad-hoc software can greatly aid the discovery, querying, and comparison of datasets (e.g. \cite{Morris2013}). Dedicated software is therefore important to maximize the fruition, and the ultimate impact of publicly available datasets.
+
+One of the best sources of raw and publicly available long-term observations of population abundance of diverse plants and animals is the Long-Term Ecological Research (LTER) network supported by the U.S. National Science Foundation. The LTER was founded in 1980 and grew from the original six sites, to the current 24 sites throughout North America plus one each in Puerto Rico and Antarctica. Synthetic and comparative studies from the LTER network have made valuable contributions to ecological understanding \citep{Knapp2012}. However, the majority of LTER synthesis research has focused on ecological dynamics at the community (e.g. \cite{Wilcox2017}) and ecosystem (e.g. \cite{Knapp2001}) scales. Nevertheless, every LTER site collects population abundance data as one of its five core areas of continuous observations \citep{Callahan1984}. In our opinion, these data, which have been accumulating since 1980, are under-used. One issue that likely limits the use of LTER population data in synthetic, comparative studies is their heterogeneity. Indeed, several authors have noticed that progress in ecological science is hindered by difficulties in the way data is accessed, by heterogeneities in the way data is structured, and by failure to cite data originators (CHECK: Jones et al. 2004, Reichman et al. 2011). The structure of LTER data sets may be widely different, employing a variety of data types (counts of individuals, biomass estimates, percent cover, etc.), experimental designs driven by the priorities of particular PIs, and diverse replication schemes – idiosyncrasies that may be difficult to accommodate in a one-size-fits-all database. However, these challenges also present valuable opportunities. For example, the hierarchical replication structure of many LTER studies (e.g., subplots within plots within transects) can facilitate more sophisticated statistical investigation than would be possible with simpler, aggregated, or unreplicated data.
+
+To overcome the issues posed by heterogeneous data structures, we developed popler (POPulation dynamics in Long-term Ecological Research), an online database of LTER population studies and an associated R package  to facilitate querying its contents. Popler defines a common data structure to accommodate nearly every long-term population data set provided by the LTER network through the present. The common data structure facilitates the identification, access, and manipulation of raw population data through a user-friendly R package. Our goals here are to provide introductions to the popler database and R package, which we believe will be useful resources in population, community, and macro ecology. Our focus here is on LTER data but our schema can in principle, accommodate any population level dataset and expanding popler beyond the LTER network is a priority for future development.
+
+\section*{The database}
+
+\bibliography{popler}
+\end{document}
