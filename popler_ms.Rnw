@@ -46,6 +46,7 @@ opts_chunk$set(echo=F,warning=F,error=F,message=F,include=F)
 @
 
 \maketitle
+\tom{Tom's comments appear in red italics.}
 
 \newpage
 
@@ -171,7 +172,7 @@ This operation will create the object \texttt{LTER\textunderscore 30}, which pro
 <<LTER_30_plants, eval=T,echo=T,include=T>>=
 LTER_30_plants <- browse( duration_years > 29 & kingdom == "Plantae")
 @
-It is at the \texttt{browse()} stage that users should  vet the data sets that meet their criteria. To facilitate data exploration, \texttt{browse()} output can be printed in a more readable settings by providing \texttt{report = TRUE} as an argument, which opens up a formatted html document (Figure 3). The metadata provided by \texttt{browse()} not only contains information on the characteristics of a study but also information on how to cite the study, its unique identifiers, including doi, Knowledge Network for Biocomplexity (\url{http://knb.ecoinformatics.org}) catalog system identifier, the contact information of study PIs, and a hyperlink to the url providing the original data.
+It is at the \texttt{browse()} stage that users should  vet the data sets that meet their criteria. To facilitate data exploration, \texttt{browse()} output can be printed in a more readable settings by providing \texttt{report = TRUE} as an argument, which opens up a formatted html document (Fig. \ref{Fig:reportT}). The metadata provided by \texttt{browse()} not only contains information on the characteristics of a study but also information on how to cite the study, its unique identifiers, including doi, Knowledge Network for Biocomplexity (\url{http://knb.ecoinformatics.org}) catalog system identifier, the contact information of study PIs, and a hyperlink to the url providing the original data.
 
 
 \subsection*{The \texttt{get\textunderscore data()} function}
@@ -185,7 +186,7 @@ downloads the raw data from the studies described in the browse object \texttt{L
 <<BNZ_30_dat,eval=F,echo=T,include=T>>=
 BNZ_30_dat <- get_data(LTER_30,lterid == "BNZ ")
 @
-\tom{Why is there a space after BNZ? Can we clean this up? It's a little embrassing for a cherry-picked example.}downloads the subset of data sets in \texttt{LTER\textunderscore 30} from the Bonanza Creek LTER site. The three letter code ``BNZ'' could have been located running \texttt{dictionary(lterid)} (we show the meaning of three letters codes in Table S3). The data downloaded from \texttt{popler} are in ``long'' form, meaning that each row of data reports a single measure of population size, and separate variables indicate the temporal and spatial replicate, taxonomic information, etc. This format makes it easy to further subset downloaded datasets with the aim of visualization and analysis. For example, to visualize the yearly population size of a single species across time and its spatial replicates, we can subset the study, the species, and flag its spatial replicates with a different color. We provide such an example using a 33-year long data set collected at the Bonanza Creek LTER. We select a dataset that measures the population size of plants as counts of observed individuals. We highlight one example species, \textit{Viburnum edulis} \tom{Aldo wrote: ???} and color code the highest level of spatial replication (the study sites of Fig. \ref{Fig:schema}B). The following code draws the plot shown in Fig. \ref{BNZ_plot}.
+\tom{Why is there a space after BNZ? Can we clean this up? It's a little embrassing for a cherry-picked example.}downloads the subset of data sets in \texttt{LTER\textunderscore 30} from the Bonanza Creek LTER site. The three letter code ``BNZ'' could have been located running \texttt{dictionary(lterid)} (we show the meaning of three letters codes in Table S3). The data downloaded from \texttt{popler} are in ``long'' form, meaning that each row of data reports a single measure of population size, and separate variables indicate the temporal and spatial replicate, taxonomic information, etc. This format makes it easy to further subset downloaded datasets with the aim of visualization and analysis. For example, to visualize the yearly population size of a single species across time and its spatial replicates, we can subset the study, the species, and flag its spatial replicates with a different color. We provide such an example using a 33-year long data set collected at the Bonanza Creek LTER. We select a dataset that measures the population size of plants as counts of observed individuals. We highlight one example species, \textit{Viburnum edulis} \tom{Aldo wrote: ???} and color code the highest level of spatial replication (the study sites of Fig. \ref{Fig:schema}B). The following code draws the plot shown in Fig. \ref{Fig:BNZ_plot}.
 <<BNZ_plot,include=T,echo=T,eval=F>>=
 plot(abundance_observation ~ year, 
      col = as.factor(spatial_replication_level_1),
@@ -254,6 +255,15 @@ Support for database and package development was provided by the National Scienc
     \includegraphics[scale=0.8]{BNZ_plot}
     \caption{Time series of \textit{Viburnum edulis} abundance counts at Bonanza Creek LTER. The abundance observation is a count and colors correspond to multiple study sites, the largest scale of spatial replication in \texttt{popler}. There are additional, smaller scales of spatial replication in this study, and hence multiple points per site per year.}
     \label{Fig:BNZ_plot}
+  \end{center}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[scale=0.8]{reportT}
+    \caption{The html output of function \texttt{browse()} when argument report = TRUE.}
+    \label{Fig:reportT}
   \end{center}
 \end{figure}
 
