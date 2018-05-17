@@ -1,0 +1,179 @@
+\begin{thebibliography}{23}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bechtold et~al.(2005)Bechtold, Patterson, et~al.]{Bechtold2005}
+W.~A. Bechtold, P.~L. Patterson, et~al.
+\newblock \emph{The enhanced forest inventory and analysis program: national
+  sampling design and estimation procedures}, volume~80.
+\newblock US Department of Agriculture Forest Service, Southern Research
+  Station Asheville, North Carolina, 2005.
+
+\bibitem[Beissinger and McCullough(2002)]{Beissinger2002}
+S.~R. Beissinger and D.~R. McCullough.
+\newblock \emph{Population viability analysis}.
+\newblock University of Chicago Press, 2002.
+
+\bibitem[Callahan(1984)]{Callahan1984}
+J.~T. Callahan.
+\newblock Long-term ecological research.
+\newblock \emph{BioScience}, 34\penalty0 (6):\penalty0 363--367, 1984.
+
+\bibitem[Chamberlain and Sz{\"o}cs(2013)]{Chamberlain2013}
+S.~A. Chamberlain and E.~Sz{\"o}cs.
+\newblock taxize: taxonomic search and retrieval in r.
+\newblock \emph{F1000Research}, 2, 2013.
+
+\bibitem[Compagnoni et~al.(2016)Compagnoni, Bibian, Ochocki, Rogers, Schultz,
+  Sneck, Elderd, Iler, Inouye, Jacquemyn, and Miller]{Compagnoni2016}
+A.~Compagnoni, A.~J. Bibian, B.~M. Ochocki, H.~S. Rogers, E.~L. Schultz, M.~E.
+  Sneck, B.~D. Elderd, A.~M. Iler, D.~W. Inouye, H.~Jacquemyn, and T.~E.~X.
+  Miller.
+\newblock The effect of demographic correlations on the stochastic population
+  dynamics of perennial plants.
+\newblock 86:\penalty0 480--494, 2016.
+\newblock ISSN 0012-9615.
+\newblock \doi{10.1002/ecm.1228}.
+
+\bibitem[Fisher et~al.(2018)Fisher, Koven, Anderegg, Christoffersen, Dietze,
+  Farrior, Holm, Hurtt, Knox, Lawrence, et~al.]{Fisher2018}
+R.~A. Fisher, C.~D. Koven, W.~R. Anderegg, B.~O. Christoffersen, M.~C. Dietze,
+  C.~E. Farrior, J.~A. Holm, G.~C. Hurtt, R.~G. Knox, P.~J. Lawrence, et~al.
+\newblock Vegetation demographics in earth system models: A review of progress
+  and priorities.
+\newblock \emph{Global change biology}, 24\penalty0 (1):\penalty0 35--54, 2018.
+
+\bibitem[Giron-Nava et~al.(2017)Giron-Nava, James, Johnson, Dannecker, Kolody,
+  Lee, Nagarkar, Pao, Ye, Johns, et~al.]{Giron-Nava2017}
+A.~Giron-Nava, C.~C. James, A.~F. Johnson, D.~Dannecker, B.~Kolody, A.~Lee,
+  M.~Nagarkar, G.~M. Pao, H.~Ye, D.~G. Johns, et~al.
+\newblock Quantitative argument for long-term ecological monitoring.
+\newblock \emph{Marine Ecology Progress Series}, 572:\penalty0 269--274, 2017.
+
+\bibitem[Hampton et~al.(2013)Hampton, Holmes, Scheef, Scheuerell, Katz,
+  Pendleton, and Ward]{Hampton2013}
+S.~E. Hampton, E.~E. Holmes, L.~P. Scheef, M.~D. Scheuerell, S.~L. Katz, D.~E.
+  Pendleton, and E.~J. Ward.
+\newblock Quantifying effects of abiotic and biotic drivers on community
+  dynamics with multivariate autoregressive (mar) models.
+\newblock \emph{Ecology}, 94\penalty0 (12):\penalty0 2663--2669, 2013.
+
+\bibitem[Inchausti and Halley(2001)]{Inchausti2001}
+P.~Inchausti and J.~Halley.
+\newblock Investigating long-term ecological variability using the global
+  population dynamics database.
+\newblock \emph{Science}, 293\penalty0 (5530):\penalty0 655--657, 2001.
+
+\bibitem[Knape and de~Valpine(2011)]{Knape2011}
+J.~Knape and P.~de~Valpine.
+\newblock Effects of weather and climate on the dynamics of animal population
+  time series.
+\newblock \emph{Proceedings of the Royal Society of London B: Biological
+  Sciences}, 278\penalty0 (1708):\penalty0 985--992, 2011.
+
+\bibitem[Knape and de~Valpine(2012)]{Knape2012}
+J.~Knape and P.~de~Valpine.
+\newblock Are patterns of density dependence in the global population dynamics
+  database driven by uncertainty about population abundance?
+\newblock \emph{Ecology letters}, 15\penalty0 (1):\penalty0 17--23, 2012.
+
+\bibitem[Knapp and Smith(2001)]{Knapp2001}
+A.~K. Knapp and M.~D. Smith.
+\newblock Variation among biomes in temporal dynamics of aboveground primary
+  production.
+\newblock \emph{Science}, 291\penalty0 (5503):\penalty0 481--484, 2001.
+
+\bibitem[Knapp et~al.(2012)Knapp, Smith, Hobbie, Collins, Fahey, Hansen,
+  Landis, La~Pierre, Melillo, Seastedt, et~al.]{Knapp2012}
+A.~K. Knapp, M.~D. Smith, S.~E. Hobbie, S.~L. Collins, T.~J. Fahey, G.~J.
+  Hansen, D.~A. Landis, K.~J. La~Pierre, J.~M. Melillo, T.~R. Seastedt, et~al.
+\newblock Past, present, and future roles of long-term experiments in the lter
+  network.
+\newblock \emph{BioScience}, 62\penalty0 (4):\penalty0 377--389, 2012.
+
+\bibitem[Kratz et~al.(2003)Kratz, Deegan, Harmon, and Lauenroth]{Kratz2003}
+T.~K. Kratz, L.~A. Deegan, M.~E. Harmon, and W.~K. Lauenroth.
+\newblock Ecological variability in space and time: Insights gained from the us
+  lter program.
+\newblock \emph{AIBS Bulletin}, 53\penalty0 (1):\penalty0 57--67, 2003.
+
+\bibitem[Laurance et~al.(2016)Laurance, Achard, Peedell, and
+  Schmitt]{Laurance2016}
+W.~F. Laurance, F.~Achard, S.~Peedell, and S.~Schmitt.
+\newblock Big data, big opportunities.
+\newblock \emph{Frontiers in Ecology and the Environment}, 14\penalty0
+  (7):\penalty0 347--347, 2016.
+
+\bibitem[Levine and HilleRisLambers(2009)]{Levine2009}
+J.~M. Levine and J.~HilleRisLambers.
+\newblock The importance of niches for the maintenance of species diversity.
+\newblock \emph{Nature}, 461\penalty0 (7261):\penalty0 254, 2009.
+
+\bibitem[Lindenmayer et~al.(2012)Lindenmayer, Likens, Andersen, Bowman, Bull,
+  Burns, Dickman, Hoffmann, Keith, Liddell, et~al.]{Lindenmayer2012}
+D.~B. Lindenmayer, G.~E. Likens, A.~Andersen, D.~Bowman, C.~M. Bull, E.~Burns,
+  C.~R. Dickman, A.~A. Hoffmann, D.~A. Keith, M.~J. Liddell, et~al.
+\newblock Value of long-term ecological studies.
+\newblock \emph{Austral Ecology}, 37\penalty0 (7):\penalty0 745--757, 2012.
+
+\bibitem[Medvigy et~al.(2009)Medvigy, Wofsy, Munger, Hollinger, and
+  Moorcroft]{Medvigy2009}
+D.~Medvigy, S.~Wofsy, J.~Munger, D.~Hollinger, and P.~Moorcroft.
+\newblock Mechanistic scaling of ecosystem function and dynamics in space and
+  time: Ecosystem demography model version 2.
+\newblock \emph{Journal of Geophysical Research: Biogeosciences}, 114\penalty0
+  (G1), 2009.
+
+\bibitem[Metcalf and Pavard(2007)]{Metcalf2007}
+C.~J.~E. Metcalf and S.~Pavard.
+\newblock Why evolutionary biologists should be demographers.
+\newblock \emph{Trends in Ecology \& Evolution}, 22\penalty0 (4):\penalty0
+  205--212, 2007.
+
+\bibitem[Morris and Doak(2002)]{Morris2002b}
+W.~Morris and D.~Doak.
+\newblock Quantitative conservation biology; theory and practice in
+  conservation biology.
+\newblock \emph{Sinauer, Sunderland, Massachusetts, USA}, 2002.
+
+\bibitem[Schimel et~al.(2007)Schimel, Hargrove, Hoffman, and
+  MacMahon]{schimel2007neon}
+D.~Schimel, W.~Hargrove, F.~Hoffman, and J.~MacMahon.
+\newblock Neon: A hierarchically designed national ecological network.
+\newblock \emph{Frontiers in Ecology and the Environment}, 5\penalty0
+  (2):\penalty0 59--59, 2007.
+
+\bibitem[Ushio et~al.(2018)Ushio, Hsieh, Masuda, Deyle, Ye, Chang, Sugihara,
+  and Kondoh]{Ushio2018}
+M.~Ushio, C.-H. Hsieh, R.~Masuda, E.~R. Deyle, H.~Ye, C.-W. Chang, G.~Sugihara,
+  and M.~Kondoh.
+\newblock Fluctuating interaction network and time-varying stability of a
+  natural fish community.
+\newblock \emph{Nature}, 554:\penalty0 360--363, Feb. 2018.
+\newblock ISSN 1476-4687.
+\newblock \doi{10.1038/nature25504}.
+
+\bibitem[Wilcox et~al.(2017)Wilcox, Tredennick, Koerner, Grman, Hallett,
+  Avolio, La~Pierre, Houseman, Isbell, Johnson, Alatalo, Baldwin, Bork,
+  Boughton, Bowman, Britton, Cahill, Collins, Du, Eskelinen, Gough, Jentsch,
+  Kern, Klanderud, Knapp, Kreyling, Luo, McLaren, Megonigal, Onipchenko,
+  Prevéy, Price, Robinson, Sala, Smith, Soudzilovskaia, Souza, Tilman, White,
+  Xu, Yahdjian, Yu, Zhang, and Zhang]{Wilcox2017}
+K.~R. Wilcox, A.~T. Tredennick, S.~E. Koerner, E.~Grman, L.~M. Hallett, M.~L.
+  Avolio, K.~J. La~Pierre, G.~R. Houseman, F.~Isbell, D.~S. Johnson, J.~M.
+  Alatalo, A.~H. Baldwin, E.~W. Bork, E.~H. Boughton, W.~D. Bowman, A.~J.
+  Britton, J.~F. Cahill, S.~L. Collins, G.~Du, A.~Eskelinen, L.~Gough,
+  A.~Jentsch, C.~Kern, K.~Klanderud, A.~K. Knapp, J.~Kreyling, Y.~Luo, J.~R.
+  McLaren, P.~Megonigal, V.~Onipchenko, J.~Prevéy, J.~N. Price, C.~H.
+  Robinson, O.~E. Sala, M.~D. Smith, N.~A. Soudzilovskaia, L.~Souza, D.~Tilman,
+  S.~R. White, Z.~Xu, L.~Yahdjian, Q.~Yu, P.~Zhang, and Y.~Zhang.
+\newblock Asynchrony among local communities stabilises ecosystem function of
+  metacommunities.
+\newblock \emph{Ecology letters}, 20:\penalty0 1534--1545, Dec. 2017.
+\newblock ISSN 1461-0248.
+\newblock \doi{10.1111/ele.12861}.
+
+\end{thebibliography}

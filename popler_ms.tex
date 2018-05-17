@@ -1,4 +1,54 @@
-\documentclass{article}
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage{geometry}
 \usepackage[round]{natbib}
 \bibliographystyle{abbrvnat}
@@ -32,18 +82,10 @@
 
 \renewcommand\Authands{ and }
 \date{Running headline: The \texttt{popler} database and R package}
-
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
-<<setup,echo=F,warning=F,error=F,message=F>>=
-#install.packages("devtools")
-#devtools::install_github("AldoCompagnoni/popler", build_vignettes=T, force=T)
-#install.packages("dplyr")
-library(popler)
-library(knitr)
-library(tidyverse)
-opts_chunk$set(echo=F,warning=F,error=F,message=F,include=F)
-@
+
 
 \maketitle
 \tom{Tom's comments appear in red italics.}
@@ -123,61 +165,62 @@ We included or excluded studies based on several criteria. First, we only includ
 
 %In several cases, we integrated the taxonomic information provided in the original datasets, which only reported alphanumeric species codes. We obtained taxonomic information from a separate file, from the online dataset documentation or, more rarely, from emailing the dataset originator. 
 Before uploading to the online database, we preprocessed datasets in python and R. We often had to combine the separate files associated with the same dataset, transform datasets from ``wide'' to ``long'' form, convert non-ASCII characters, and handling ambiguous study sites. We provide the details of this pre-processing in Appendix S1.
-<<popler_specs>>=
-# popler contenct
-sum_tab       <- browse()
-# "easy" metrics
-tot_studies   <- nrow( browse() )
-n_exp     <- browse() %>% filter(studytype=="exp") %>% count()
-n_datatype    <- browse() %>% count( datatype)
-tot_years     <- browse() %>% .$duration_years %>% sum(na.rm=T)
-mean_dur      <- round(mean(browse()$duration_years,na.rm=T),2)
 
-# number of plants
-dictionary(kingdom)
-plants_spp <- browse( kingdom == 'Plantae' ) 
-n_plant    <- Reduce(function(...) rbind(...), plants_spp$taxas) %>% 
-                select(genus, species) %>% 
-                unique %>% 
-                nrow
-# animals 
-anim_spp   <- browse( kingdom == 'Animalia' | kingdom == ' Animalia' ) 
-n_anim     <- Reduce(function(...) rbind(...), anim_spp$taxas) %>% 
-                select(genus, species) %>% 
-                unique %>% 
-                nrow
 
-fung_spp   <- browse( kingdom == 'Fungi') 
-n_fung     <- Reduce(function(...) rbind(...), fung_spp$taxas) %>% 
-                select(genus, species) %>% 
-                unique %>% 
-                nrow
-@
-
-The \texttt{popler} database resulting from this process contains data from \Sexpr{tot_studies} studies (\Sexpr{n_exp} of which are experimental) representing \Sexpr{tot_years} cumulative years of observations with a mean study duration of \Sexpr{mean_dur} years. \texttt{popler} contains data from \Sexpr{n_plant} plant species, \Sexpr{n_anim} animal species, and \Sexpr{n_fung} fungal species.
+The \texttt{popler} database resulting from this process contains data from 265 studies (118 of which are experimental) representing 3436 cumulative years of observations with a mean study duration of 12.97 years. \texttt{popler} contains data from 691 plant species, 349 animal species, and 1 fungal species.
 
 \section*{The \texttt{popler} package}
 The \texttt{popler} R package consists of three core functions that allow users to browse and retrieve data from the database (Fig. \ref{Fig:pack_funs}). In order of intended use, these functions are: \texttt{dictionary()}, \texttt{browse()}, and \texttt{get\textunderscore data()}. This order of use revolves around a summary table made up of the variables contained in the metadata (Fig. Fig. \ref{Fig:schema}D) and taxonomic (Fig. Fig. \ref{Fig:schema}B) tables of the online database. Each row of the summary table corresponds to a dataset and each column corresponds to one of the metadata variables that describe it. The \texttt{dictionary()} function explains what these variables (or columns) are, and it shows their content. This content provides the information needed to subset and visualize metadata through the \texttt{browse()} function, which returns studies (or rows) that satify the subset criteria. Finally, following exploration of the metadata, raw data can be downloaded with the \texttt{get\textunderscore data()} function. Below we describe these functions and illustrate their use in greater detail.
 
 \subsection*{The \texttt{dictionary()} function}
 The dictionary function is a good place for new users to begin working with \texttt{popler} (Fig. \ref{Fig:pack_funs}). With no arguments provided, this function returns a subset of the most useful metadata variables associated with each  dataset (Fig. \ref{Fig:schema}):
-<<dictionary, include=T>>=
-dictionary()
-@
-Setting argument \texttt{full\textunderscore tbl} to \texttt{TRUE} returns all \Sexpr{nrow(dictionary(full_tbl = T))} metadata variables. Each one of these variables name can be provided as an argument to \texttt{dictionary()}, which will then return the possible unique values of the variable. For example, \texttt{dictionary(lterid)} returns the three letter codes for all sites in the LTER network, \texttt{dictionary(genus)} returns all the genera represented in the database, etc. This output provides the starting point for developing criteria with which to identify relevant datasets.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+##             variable                                 description
+## 1              title                            title of project
+## 2  proj_metadata_key                           unique project id
+## 3             lterid                                   lter name
+## 4           datatype type of abundance data (e.g. count,biomass)
+## 5          studytype        experimental or observational study?
+## 6     duration_years                duration of project in years
+## 7          community        does data set contain multiple taxa?
+## 8          structure               types of indidivual structure
+## 9          treatment                          types of treatment
+## 10          lat_lter                          lter site latitude
+## 11          lng_lter                         lter site longitude
+## 12           species        specific epithet of a taxonomic unit
+## 13           kingdom                                     kingdom
+## 14            phylum                                      phylum
+## 15             class                                       class
+## 16             order                                       order
+## 17            family                                      family
+## 18             genus                                       genus
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Setting argument \texttt{full\textunderscore tbl} to \texttt{TRUE} returns all 76 metadata variables. Each one of these variables name can be provided as an argument to \texttt{dictionary()}, which will then return the possible unique values of the variable. For example, \texttt{dictionary(lterid)} returns the three letter codes for all sites in the LTER network, \texttt{dictionary(genus)} returns all the genera represented in the database, etc. This output provides the starting point for developing criteria with which to identify relevant datasets.
 \tom{Note for Aldo: I thought we decided that dictionary(variable) would return the unique levels of factors and quantiles of continuous variables. This is not how it is working. dictionary(duration\textunderscore years) returns unique levels of years. Also, the output shows studies less than 5 years, including zero years and one NA. This is not consistent with the criteria stated in the text. This will need some attention. Lastly, we should probably cut `Chromalveolata' from the kingdom data.}
 
 \subsection*{The \texttt{browse()} function}
-Once the user is familiar with the meaning and content of the variables that define \texttt{popler} datasets, they are ready to dig deeper using \texttt{browse()} (Fig. \ref{Fig:pack_funs}). Running \texttt{browse()} without arguments provides the metadata from all of the datasets currently stored in popler. This will be a $\Sexpr{dim(browse())[1]} * \Sexpr{dim(browse())[2]}$ data frame, with each row corresponding to a study and each column corresponding to a variable defined by \texttt{dictionary()}.
+Once the user is familiar with the meaning and content of the variables that define \texttt{popler} datasets, they are ready to dig deeper using \texttt{browse()} (Fig. \ref{Fig:pack_funs}). Running \texttt{browse()} without arguments provides the metadata from all of the datasets currently stored in popler. This will be a $265 * 19$ data frame, with each row corresponding to a study and each column corresponding to a variable defined by \texttt{dictionary()}.
 
 The full strength of \texttt{browse()} is achieved by subsetting studies according to desired criteria using standard logical expressions. For example, the user might want to consider only studies whose duration is 30 years or greater, which can be subsetted with:
-<<LTER_30, eval=T,echo=T,include=T>>=
-LTER_30 <- browse( duration_years > 29)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{LTER_30} \hlkwb{<-} \hlkwd{browse}\hlstd{( duration_years} \hlopt{>} \hlnum{29}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 This operation will create the object \texttt{LTER\textunderscore 30}, which provides metadata for the data sets that satisfy the specified criterion. Multiple criteria may be combined. For example, 30+ year studies of plants can be browsed with
-<<LTER_30_plants, eval=T,echo=T,include=T>>=
-LTER_30_plants <- browse( duration_years > 29 & kingdom == "Plantae")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{LTER_30_plants} \hlkwb{<-} \hlkwd{browse}\hlstd{( duration_years} \hlopt{>} \hlnum{29} \hlopt{&} \hlstd{kingdom} \hlopt{==} \hlstr{"Plantae"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 It is at the \texttt{browse()} stage that users should  vet the data sets that meet their criteria. To facilitate data exploration, \texttt{browse()} output can be printed in a more readable settings by providing \texttt{report = TRUE} as an argument, which opens up a formatted html document (Fig. \ref{Fig:reportT}). The metadata provided by \texttt{browse()} not only contains information on the characteristics of a study but also information on how to cite the study, its unique identifiers, including doi, Knowledge Network for Biocomplexity (\url{http://knb.ecoinformatics.org}) catalog system identifier, the contact information of study PIs, and a hyperlink to the url providing the original data.
 
 
@@ -185,19 +228,31 @@ It is at the \texttt{browse()} stage that users should  vet the data sets that m
 \tom{Random observation: the study titles in popler are sometimes in quotes, sometimes not. This should be cleaned up. Also I would like to edit the default message of getdata() before we publish.}
 
 Once data sets of interest have been identified, \texttt{get\textunderscore data()} downloads the data from a server that hosts the database. This function can take as its first argument a \texttt{browse} object, a logical expression, either, or both. For example, %I set eval to false in these chunks because they each take a long time to run. I ran them once in R.
-<<LTER_30_dat, eval=F,echo=T,include=T>>=
-LTER_30_dat <- get_data(LTER_30)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{LTER_30_dat} \hlkwb{<-} \hlkwd{get_data}\hlstd{(LTER_30)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 downloads the raw data from the studies described in the browse object \texttt{LTER\textunderscore 30} and 
-<<BNZ_30_dat,eval=F,echo=T,include=T>>=
-BNZ_30_dat <- get_data(LTER_30,lterid == "BNZ")
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{BNZ_30_dat} \hlkwb{<-} \hlkwd{get_data}\hlstd{(LTER_30,lterid} \hlopt{==} \hlstr{"BNZ"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 downloads the subset of data sets in \texttt{LTER\textunderscore 30} from the Bonanza Creek LTER site. The three letter code ``BNZ'' could have been located running \texttt{dictionary(lterid)} (we show the meaning of three letters codes in Table S3). The data downloaded from \texttt{popler} are in ``long'' form, meaning that each row of data reports a single measure of population size, and separate variables indicate the temporal and spatial replicate, taxonomic information, etc. This format makes it easy to further subset downloaded datasets with the aim of visualization and analysis. For example, to visualize the yearly population size of a single species across time and its spatial replicates, we can subset the study, the species, and flag its spatial replicates with a different color. We provide such an example using a 33-year long data set collected at the Bonanza Creek LTER. We select a dataset that measures the population size of plants as counts of observed individuals. We highlight one example species, \textit{Viburnum edulis} \tom{Aldo wrote: ???} and color code the highest level of spatial replication (the study sites of Fig. \ref{Fig:schema}B). The following code draws the plot shown in Fig. \ref{BNZ_plot}.
-<<BNZ_plot,include=T,echo=T,eval=F>>=
-plot(abundance_observation ~ year, 
-     col = as.factor(spatial_replication_level_1),
-     data = subset(BNZ_30_dat, proj_metadata_key == 195 & sppcode == 'VIBUEDUL') )
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(abundance_observation} \hlopt{~} \hlstd{year,}
+     \hlkwc{col} \hlstd{=} \hlkwd{as.factor}\hlstd{(spatial_replication_level_1),}
+     \hlkwc{data} \hlstd{=} \hlkwd{subset}\hlstd{(BNZ_30_dat, proj_metadata_key} \hlopt{==} \hlnum{195} \hlopt{&} \hlstd{sppcode} \hlopt{==} \hlstr{'VIBUEDUL'}\hlstd{) )}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 % I ran the plot in R, saved it as a jpeg, then imported it for the figure. There is probably a more elegant approach.
 This plot shows three idiosynchrasies of this particular dataset. First, because this study includes three nested spatial replication levels, each site contains several spatial replicates and therefore multiple points with the same color. Second, the temporal resolution of this dataset is not consistent. Observations were collected at unequal intervals and, while the first and last observation are 33 years apart, the sampling was concentrated between 1983 and 2003, with only one or two sites sampled before and after. \tom{It would be nice to take this example a little further, drawing on the online study description - the type of digging one would have to do to really understand the data. For example, the abundance observation is a count, but per what sampling unit? Are these counts in a plot, counts on a transect, etc? We can't tell just from popler but we can probably get that information by reading the study design. It would be good to add something to this effect.}
 
