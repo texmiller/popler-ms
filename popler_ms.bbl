@@ -1,4 +1,4 @@
-\begin{thebibliography}{23}
+\begin{thebibliography}{18}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,11 +11,6 @@ W.~A. Bechtold, P.~L. Patterson, et~al.
   sampling design and estimation procedures}, volume~80.
 \newblock US Department of Agriculture Forest Service, Southern Research
   Station Asheville, North Carolina, 2005.
-
-\bibitem[Beissinger and McCullough(2002)]{Beissinger2002}
-S.~R. Beissinger and D.~R. McCullough.
-\newblock \emph{Population viability analysis}.
-\newblock University of Chicago Press, 2002.
 
 \bibitem[Callahan(1984)]{Callahan1984}
 J.~T. Callahan.
@@ -46,13 +41,6 @@ R.~A. Fisher, C.~D. Koven, W.~R. Anderegg, B.~O. Christoffersen, M.~C. Dietze,
   and priorities.
 \newblock \emph{Global change biology}, 24\penalty0 (1):\penalty0 35--54, 2018.
 
-\bibitem[Giron-Nava et~al.(2017)Giron-Nava, James, Johnson, Dannecker, Kolody,
-  Lee, Nagarkar, Pao, Ye, Johns, et~al.]{Giron-Nava2017}
-A.~Giron-Nava, C.~C. James, A.~F. Johnson, D.~Dannecker, B.~Kolody, A.~Lee,
-  M.~Nagarkar, G.~M. Pao, H.~Ye, D.~G. Johns, et~al.
-\newblock Quantitative argument for long-term ecological monitoring.
-\newblock \emph{Marine Ecology Progress Series}, 572:\penalty0 269--274, 2017.
-
 \bibitem[Hampton et~al.(2013)Hampton, Holmes, Scheef, Scheuerell, Katz,
   Pendleton, and Ward]{Hampton2013}
 S.~E. Hampton, E.~E. Holmes, L.~P. Scheef, M.~D. Scheuerell, S.~L. Katz, D.~E.
@@ -66,13 +54,6 @@ P.~Inchausti and J.~Halley.
 \newblock Investigating long-term ecological variability using the global
   population dynamics database.
 \newblock \emph{Science}, 293\penalty0 (5530):\penalty0 655--657, 2001.
-
-\bibitem[Knape and de~Valpine(2011)]{Knape2011}
-J.~Knape and P.~de~Valpine.
-\newblock Effects of weather and climate on the dynamics of animal population
-  time series.
-\newblock \emph{Proceedings of the Royal Society of London B: Biological
-  Sciences}, 278\penalty0 (1708):\penalty0 985--992, 2011.
 
 \bibitem[Knape and de~Valpine(2012)]{Knape2012}
 J.~Knape and P.~de~Valpine.
@@ -133,28 +114,12 @@ C.~J.~E. Metcalf and S.~Pavard.
 \newblock \emph{Trends in Ecology \& Evolution}, 22\penalty0 (4):\penalty0
   205--212, 2007.
 
-\bibitem[Morris and Doak(2002)]{Morris2002b}
-W.~Morris and D.~Doak.
-\newblock Quantitative conservation biology; theory and practice in
-  conservation biology.
-\newblock \emph{Sinauer, Sunderland, Massachusetts, USA}, 2002.
-
 \bibitem[Schimel et~al.(2007)Schimel, Hargrove, Hoffman, and
   MacMahon]{schimel2007neon}
 D.~Schimel, W.~Hargrove, F.~Hoffman, and J.~MacMahon.
 \newblock Neon: A hierarchically designed national ecological network.
 \newblock \emph{Frontiers in Ecology and the Environment}, 5\penalty0
   (2):\penalty0 59--59, 2007.
-
-\bibitem[Ushio et~al.(2018)Ushio, Hsieh, Masuda, Deyle, Ye, Chang, Sugihara,
-  and Kondoh]{Ushio2018}
-M.~Ushio, C.-H. Hsieh, R.~Masuda, E.~R. Deyle, H.~Ye, C.-W. Chang, G.~Sugihara,
-  and M.~Kondoh.
-\newblock Fluctuating interaction network and time-varying stability of a
-  natural fish community.
-\newblock \emph{Nature}, 554:\penalty0 360--363, Feb. 2018.
-\newblock ISSN 1476-4687.
-\newblock \doi{10.1038/nature25504}.
 
 \bibitem[Wilcox et~al.(2017)Wilcox, Tredennick, Koerner, Grman, Hallett,
   Avolio, La~Pierre, Houseman, Isbell, Johnson, Alatalo, Baldwin, Bork,
