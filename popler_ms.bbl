@@ -1,4 +1,4 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{20}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -32,6 +32,12 @@ A.~Compagnoni, A.~J. Bibian, B.~M. Ochocki, H.~S. Rogers, E.~L. Schultz, M.~E.
 \newblock 86:\penalty0 480--494, 2016.
 \newblock ISSN 0012-9615.
 \newblock \doi{10.1002/ecm.1228}.
+
+\bibitem[Dornelas et~al.(2018)Dornelas, Antao, Moyes, Bates, Magorra, Adam,
+  et~al.]{dornelas2018biotime}
+M.~Dornelas, L.~H. Antao, F.~Moyes, A.~E. Bates, A.~Magorra, D.~Adam, et~al.
+\newblock Biotime: a database of biodiversity time series for the anthropocene.
+\newblock \emph{Global Ecology and Biogeography}, 2018.
 
 \bibitem[Fisher et~al.(2018)Fisher, Koven, Anderegg, Christoffersen, Dietze,
   Farrior, Holm, Hurtt, Knox, Lawrence, et~al.]{Fisher2018}
@@ -99,6 +105,15 @@ D.~B. Lindenmayer, G.~E. Likens, A.~Andersen, D.~Bowman, C.~M. Bull, E.~Burns,
   C.~R. Dickman, A.~A. Hoffmann, D.~A. Keith, M.~J. Liddell, et~al.
 \newblock Value of long-term ecological studies.
 \newblock \emph{Austral Ecology}, 37\penalty0 (7):\penalty0 745--757, 2012.
+
+\bibitem[Loh et~al.(2005)Loh, Green, Ricketts, Lamoreux, Jenkins, Kapos, and
+  Randers]{loh2005living}
+J.~Loh, R.~E. Green, T.~Ricketts, J.~Lamoreux, M.~Jenkins, V.~Kapos, and
+  J.~Randers.
+\newblock The living planet index: using species population time series to
+  track trends in biodiversity.
+\newblock \emph{Philosophical Transactions of the Royal Society of London B:
+  Biological Sciences}, 360\penalty0 (1454):\penalty0 289--295, 2005.
 
 \bibitem[Medvigy et~al.(2009)Medvigy, Wofsy, Munger, Hollinger, and
   Moorcroft]{Medvigy2009}
