@@ -22,15 +22,13 @@
 \author[a]{Andrew J. Bibian}
 \author[a]{Brad M. Ochocki}
 \author[b,c]{Sam Levin}
-\author[d]{Margaret O'Brien}
-\author[e]{Kai Zhu}
+\author[d]{Kai Zhu}
 \author[a]{Tom E.X. Miller}
 
 \affil[a]{Department of BioSciences, Program in Ecology and Evolutionary Biology, Rice University, 6100 Main St, MS-170, Houston, TX 77005}
 \affil[b]{Institute of Biology, Martin Luther University Halle-Wittenberg, Am Kirchtor 1, 06108 Halle (Saale), Germany}
 \affil[c]{German Centre for Integrative Biodiversity Research (iDiv) Halle-Jena-Leipzig, Deutscher Platz 5e, 04103 Leipzig, Germany}
-\affil[d]{Marine Science Institute, University of California, Santa Barbara, CA 93016, United States}
-\affil[e]{Department of Environmental Studies, University of California, Santa Cruz, CA 95064, USA}
+\affil[d]{Department of Environmental Studies, University of California, Santa Cruz, CA 95064, USA}
 
 \renewcommand\Authands{ and }
 \date{Running headline: The \texttt{popler} database and R package}
