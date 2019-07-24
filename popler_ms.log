@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.13)  2 NOV 2018 12:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.13)  23 JUL 2019 22:22
 entering extended mode
 **./popler_ms.tex
 (popler_ms.tex
@@ -938,29 +938,29 @@ Package color Info: Redefining color shadecolor on input line 172.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 174.
 Package color Info: Redefining color shadecolor on input line 180.
-[9] [10] (popler_ms.bbl [11] [12]) [13]
-Underfull \hbox (badness 10000) in paragraph at lines 222--223
+[9] [10] (popler_ms.bbl [11] [12] [13]) [14]
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
 []|\T1/cmr/m/n/10 The $\OML/cmm/m/it/10 n[]$ \T1/cmr/m/n/10 level of spa-tial r
 epli-ca-tion, where
  []
 
-[14]
-<schema.jpg, id=189, 963.6pt x 542.025pt>
+[15]
+<schema.jpg, id=193, 963.6pt x 542.025pt>
 File: schema.jpg Graphic file (type jpg)
 <use schema.jpg>
-Package pdftex.def Info: schema.jpg  used on input line 234.
+Package pdftex.def Info: schema.jpg  used on input line 237.
 (pdftex.def)             Requested size: 385.43317pt x 216.80615pt.
- [15 <./schema.jpg>]
-<pack_funs.jpg, id=194, 963.6pt x 542.025pt>
+ [16 <./schema.jpg>]
+<pack_funs.jpg, id=198, 963.6pt x 542.025pt>
 File: pack_funs.jpg Graphic file (type jpg)
 <use pack_funs.jpg>
-Package pdftex.def Info: pack_funs.jpg  used on input line 243.
+Package pdftex.def Info: pack_funs.jpg  used on input line 246.
 (pdftex.def)             Requested size: 385.43317pt x 216.80615pt.
 
 ! Undefined control sequence.
 <argument> ...texttt {pplr\textunderscore get\tex 
                                                   tunderscore data()} (a dat...
-l.244 ...citation for the downloaded data set(s).}
+l.247 ...citation for the downloaded data set(s).}
                                                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -971,7 +971,7 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 <argument> pplr\textunderscore get\tex 
                                        tunderscore data()
-l.244 ...citation for the downloaded data set(s).}
+l.247 ...citation for the downloaded data set(s).}
                                                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -982,7 +982,7 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 <argument> pplr\textunderscore get\tex 
                                        tunderscore data()
-l.244 ...citation for the downloaded data set(s).}
+l.247 ...citation for the downloaded data set(s).}
                                                   
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -990,59 +990,59 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[16 <./pack_funs.jpg>] [17]pdfTeX warning (ext4): destination with the same ide
+[17 <./pack_funs.jpg>] [18]pdfTeX warning (ext4): destination with the same ide
 ntifier (name{table.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.293 ...table on original taxonomic information.}
+l.296 ...table on original taxonomic information.}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{table.1}) has been already used, duplicate
  ignored
 <to be read again> 
                    \relax 
-l.293 ...table on original taxonomic information.}
-                                                   [18]
-Underfull \hbox (badness 3612) in paragraph at lines 338--339
+l.296 ...table on original taxonomic information.}
+                                                   [19]
+Underfull \hbox (badness 3612) in paragraph at lines 341--342
 []|\T1/cmr/m/n/10 Data type: count, biomass,
  []
 
 
-Underfull \hbox (badness 5756) in paragraph at lines 346--347
+Underfull \hbox (badness 5756) in paragraph at lines 349--350
 []|\T1/cmr/m/n/10 Whether study in-cludes sin-
  []
 
 
-Underfull \hbox (badness 3323) in paragraph at lines 346--347
+Underfull \hbox (badness 3323) in paragraph at lines 349--350
 \T1/cmr/m/n/10 mul-ti-ple taxa (\T1/pcr/m/n/10 community =
  []
 
 
-Underfull \hbox (badness 3354) in paragraph at lines 349--350
+Underfull \hbox (badness 3354) in paragraph at lines 352--353
 []|\T1/cmr/m/n/10 Label of the spa-tial repli-ca-
  []
 
 
-Overfull \hbox (9.47244pt too wide) in paragraph at lines 350--350
+Overfull \hbox (9.47244pt too wide) in paragraph at lines 353--353
 []|\T1/pcr/m/n/10 spatial_replication_level_n_number_of_unique_reps| 
  []
 
 
-Underfull \hbox (badness 1147) in paragraph at lines 352--353
+Underfull \hbox (badness 1147) in paragraph at lines 355--356
 []|\T1/cmr/m/n/10 If study is ex-per-i-men-tal, this
  []
 
 
-Underfull \hbox (badness 2277) in paragraph at lines 355--356
+Underfull \hbox (badness 2277) in paragraph at lines 358--359
 []|\T1/cmr/m/n/10 Email ad-dress(es) of the au-
  []
 
 
-Overfull \hbox (32.53766pt too wide) in paragraph at lines 329--360
+Overfull \hbox (32.53766pt too wide) in paragraph at lines 332--363
  [] 
  []
 
 
-LaTeX Warning: Float too large for page by 119.55699pt on input line 361.
+LaTeX Warning: Float too large for page by 119.55699pt on input line 364.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1050,24 +1050,24 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 406.
-[19] [20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 406.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 409.
+[20] [21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 409.
  (popler_ms.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 406.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 406.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 409.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 409.
 Package rerunfilecheck Info: File `popler_ms.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 406.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 409.
  ) 
 Here is how much of TeX's memory you used:
- 7543 strings out of 493305
- 110256 string characters out of 3128497
- 205255 words of memory out of 3000000
+ 7545 strings out of 493305
+ 110274 string characters out of 3128497
+ 205259 words of memory out of 3000000
  10902 multiletter control sequences out of 15000+200000
  19150 words of font info for 48 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,12n,25p,1455b,464s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 30i,12n,25p,1455b,476s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\ac22qawo\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
 00\ecti1000.pk> <C:\Users\ac22qawo\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkn
 appen\ec\dpi600\ecbx1200.pk>{C:/Users/ac22qawo/AppData/Local/Programs/MiKTeX 2.
@@ -1085,12 +1085,11 @@ ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/User
 s/ac22qawo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmm
 i7.pfb><C:/Users/ac22qawo/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
 amsfonts/cm/cmr10.pfb><C:/Users/ac22qawo/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ac22qawo/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/ac22qawo/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on popler_ms.pdf (20 pages, 460793 bytes).
+s/type1/urw/courier/ucrb8a.pfb><C:/Users/ac22qawo/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on popler_ms.pdf (21 pages, 454452 bytes).
 PDF statistics:
  575 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
+ 70 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
