@@ -81,7 +81,7 @@ open long-term population data, US Long Term Ecological Research Network data, o
 
 \newpage
 \section*{Introduction}
-\linenumbers
+% \linenumbers
 
 Population dynamics – changes in species’ abundance and composition through time and space – are central to ecology for both applied and fundamental reasons. Populations are the building blocks of ecological dynamics at higher scales of organization, and examples abound showing how the study of population ecology improves understanding in evolution \citep{Metcalf2007}, community ecology \citep{Levine2009}, and ecosystem ecology \citep{Medvigy2009,Fisher2018}. Given their central role, studies of population dynamics will be an essential component in the advances allowed by the flourishing culture of open access and data synthesis.
 
