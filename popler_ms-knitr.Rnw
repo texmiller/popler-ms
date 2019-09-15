@@ -89,6 +89,7 @@ lter_n     <- pplr_dictionary(lterid)[[1]] %>%
 \linenumbers
 open long-term population data, US Long Term Ecological Research Network data, online database, database structure, PostgreSQL, R package, comparative analysis
 
+
 \newpage
 \section*{Introduction}
 % \linenumbers
@@ -106,6 +107,7 @@ LTER population data provides two distinct advantages compared to existing datab
 One issue that may limit the use of LTER population data is their heterogeneity. The structure of LTER data sets may be widely different, employing a variety of data types (counts of individuals, biomass estimates, percent cover, etc.), experimental designs driven by the priorities of particular PIs, and diverse replication schemes – idiosyncrasies that may be difficult to accommodate in a one-size-fits-all database. However, these challenges also present valuable opportunities. For example, the hierarchical replication structure of many LTER studies (e.g., subplots within plots within transects) can facilitate more sophisticated statistical investigation than would be possible with simpler, aggregated, or unreplicated data. %Ad-hoc software can greatly aid the discovery, querying, and comparison of datasets (e.g. \cite{Morris2013}). Dedicated software is therefore important to maximize the fruition, and the ultimate impact of publicly available datasets.
 
 To overcome the issues posed by heterogeneous data structures, we developed \texttt{popler} (POPulation dynamics in Long-term Ecological Research), an online database of LTER population studies. This database defines a common data structure that can accommodate in principle all population data, and its SQL environment allows updates whenever new data becomes available. We also developed a companion R package to facilitate the identification, access, and manipulation of raw and heterogeneous population data. Our goals here are to provide introductions to the database and package. We focus on LTER time series, but expanding \texttt{popler} beyond the LTER network is a priority for future development.
+
 
 \section*{The \texttt{popler} database}
 To combine population data from the LTER network using a common structure, we identified a set of relevant variables (Table \ref{Tab:vars}) and organized them into a relational database (Fig. \ref{Fig:schema}). We store ``raw'' data, meaning that we have not modified, edited, or aggregated the original observations. 
@@ -144,6 +146,7 @@ n_fung     <- Reduce(function(...) rbind(...), fung_spp$taxas) %>%
 @
 The \texttt{popler} database currently contains data from \Sexpr{tot_studies} studies (\Sexpr{n_exp} of which are experimental) representing \Sexpr{tot_years} cumulative years of observations. On average, studies in \texttt{popler} contain 10.5 years of data (median: 7), with the longest study containing 67. The sampling designs are predominantly yearly (49\%) and sub-yearly (44\%), and only 6\% of designs sampled populations irregularly or less often than yearly. \texttt{popler} also contains abundant spatial replication, with studies containing a mean of 295 (median: 72) unique spatial replicates distributed across an average of 2.4 (median: 2) nested spatial replication levels. Finally, \texttt{popler} contains data from \Sexpr{n_plant} plant species, \Sexpr{n_anim} animal species, and \Sexpr{n_fung} fungal species.
 
+
 \subsection*{Population data}
 We define ``population data'' as time-series of observations on the size or density of a population of a species or other taxonomic unit. Observations of population size are stored in a variable called \texttt{abundance\textunderscore observation} and can be measured as a count, biomass, density, or cover. These four types of population data are stored in the homonymous tables of the database (Fig. \ref{Fig:schema}A).
 
@@ -154,6 +157,7 @@ The population datasets contained in popler are always replicated temporally. Te
 Most datasets also contain one or more variables in addition to the ones described above which we store in a character variable called \texttt{covariates} (Table \ref{Tab:vars}). These are variables that do not conform to our data model. \texttt{covariates} stores in each row, the content an arbitrary number of such non-conforming variables. \texttt{covariates} can be useful, for example, for time series that contain information on population structure. In these datasets, observations on population size are grouped based on subdivisions of the entire population, such as males and females, large and small individuals, etc. We identify these datasets through a variable in the metadata \texttt{structured\textunderscore data} (Table \ref{Tab:S2}).
 
 Finally, in addition to time series of abundance, \texttt{popler} contains individual-level data. This data provides information on the attributes of the individuals, or a subset thereof, that make up a population. We store this information in a dedicated table (''Individual'', Fig. \ref{Fig:schema}A). As individual attributes we consider variables that describe identity, size, sex, life stage or status (e.g. reproductive or non-reproductive). We refer to these individual attributes with the term ``structure'': \texttt{popler} accommodates data sets that measure up to four types of structure simultaneously. We store these data in up to four numbered \texttt{structure\textunderscore type} variables. While these data are not population time series; we chose to include them in \texttt{popler} because they provide information on demographic transitions that can be used to derive estimates of population growth. Moreover, in the cases of datasets that sample all of the individuals in a population, individuals can be aggregated (i.e. summed) as a measure of population size.
+
 
 \subsection*{Taxonomic information}
 Each observation corresponds to a taxonomic unit (Fig. \ref{Fig:schema}B), typically a species or a genus, but also include data that refer to a higher taxonomic rank, such as family, or order. %The majority of data sets provided by the LTER include multiple taxa, so each observation regarding population size or individual attribute is associated with a unique taxonomic unit.--seems redundant
@@ -185,6 +189,7 @@ LTER_30_plants <- pplr_browse( duration_years > 29 &
 @
 To facilitate data exploration, \texttt{pplr\textunderscore browse()} output can be printed in a more readable settings by providing \texttt{report = TRUE} as an argument, which opens up a formatted html document. The metadata provided by \texttt{pplr\textunderscore browse()} not only contains information on the characteristics of a study but also information on how to cite the study, its unique identifiers, including digital object identifier (DOI), and the contact information of study PIs. 
 
+
 \subsection*{The \texttt{pplr\textunderscore get\textunderscore data()} function}
 
 Once data sets of interest have been identified, \texttt{pplr\textunderscore get\textunderscore data()} downloads the data from a server that hosts the database. This function can take as its first argument a \texttt{browse} object, a logical expression, or both. The data downloaded from \texttt{popler} are in ``long'' form, meaning that each row of data reports a single measure of population size, and separate variables indicate the temporal and spatial replicate, taxa, etc. This format makes it easy to further subset downloaded datasets with the aim of visualization and analysis. 
@@ -206,19 +211,19 @@ AC, AB, KZ, MO, TEXM designed and built the database. AC AB, KZ, BD, SM, and TEX
 \section*{Data Availability}
 The \texttt{popler} R package is publicly available at https://github.com/ropensci/popler.
 
+\newpage
 \bibliography{popler}
 
-
-
 \newpage
-\begin{longtable}{p{10cm} p{5cm}}
+ \begin{table}[h!]
+%\begin{longtable}{p{10cm} p{5cm}}
   \caption{Variables used to store population or individual data in \texttt{popler}.}
   \label{Tab:vars}
-% \begin{table}[h!]
+
   % \caption{Variables used to store population or individual data in \texttt{popler}.}
   % \label{Tab:vars}
-  % \begin{center}
-    % \begin{tabular}{l p{8cm}}
+   \begin{center}
+     \begin{tabular}{l p{8cm}}
       \hline
       Variable & Description \\
       \hline
@@ -231,10 +236,10 @@ The \texttt{popler} R package is publicly available at https://github.com/ropens
       \texttt{covariates} & Ancillary observations that do not fall into the standard schema of \texttt{popler}.\\
       \texttt{structure\textunderscore type\textunderscore n} & {For individual data, these variables measure the $n^{th}$ attribute of individuals (identity, size, sex, status, stage). \texttt{popler} accommodates up to four structure types per dataset.}\\
       \hline
-    % \end{tabular}
-  % \end{center}
-% \end{table}
-\end{longtable}
+     \end{tabular}
+   \end{center}
+ \end{table}
+%\end{longtable}
 
 \newpage
 \begin{figure}[h!]
@@ -244,6 +249,7 @@ The \texttt{popler} R package is publicly available at https://github.com/ropens
     \label{Fig:schema}
   \end{center}
 \end{figure}
+
 
 \newpage
 \begin{figure}[h!]
@@ -282,12 +288,10 @@ The \texttt{popler} R package is publicly available at https://github.com/ropens
 %\end{figure}
 
 
-
 \newpage
 
 \section*{Appendix S1: Pre-processing \texttt{popler} data}
 Before uploading datasets into the online \texttt{popler} database, we combined datasets, transformed datasets from wide to long form, converted non-ASCII characters, and modified ambiguous study site names.
-
 
 The variables of many datasets were contained in two or more separate files, which we combined in a single file. When the original dataset provided data in wide form, we transformed it into long form. In wide form datasets, abundance data associated with different species was stored in separate columns. \texttt{popler} stores these datasets in long form, whereby each row of abundance data is related to a specific taxonomic unit in the table containing taxonomic information (Fig. \ref{Fig:schema}B). We converted all data in ASCII format, because the encoding of the database is the UTF-8. We often re-defined study site names to unambiguously associate them with one of the 26 LTER sites. Many site names are alphanumeric codes (e.g. ``U1'') which can overlap across several LTER sites. Hence, we changed site names following a standard formula (namely, from ``U1'' to ``site\textunderscore sbc\textunderscore U1'', where ``sbc'' refers to the Santa Barbara coastal LTER site).
 
@@ -297,18 +301,12 @@ In a handful of cases, we removed single data rows from the original dataset. Th
 \setcounter{table}{0}
 \renewcommand{\thetable}{S\arabic{table}}
 
-
- % \begin{longtable}{p{10cm} p{5cm}}
- %      \caption{Taxonomic variables contained in the popler table on original taxonomic information.}
- %      \label{Tab:S1}\\
- %      
-      
-% \begin{table}[h!]
-\begin{longtable}{p{10cm} p{5cm}}
+ \begin{table}[h!]
+%\begin{longtable}{p{10cm} p{5cm}}
   \caption{Taxonomic variables contained in the popler table on original taxonomic information.}
   \label{Tab:S1}
-  % \begin{center}
-    % \begin{tabular}{l}
+   \begin{center}
+     \begin{tabular}{l}
       \hline
       Variable\\
       \hline
@@ -330,17 +328,17 @@ In a handful of cases, we removed single data rows from the original dataset. Th
       \texttt{species}\\
       \texttt{common\textunderscore name}\\
       \hline
-    % \end{tabular}
-  % \end{center}
-% \end{table}
-\end{longtable}
-
+     \end{tabular}
+   \end{center}
+ \end{table}
+%\end{longtable}
 
 \newpage
-% \begin{table}[h!]
-%   \caption{Metadata variables used to describe the datasets stored in \texttt{popler.}}
-%   \label{Tab:S2}
-  % \begin{center}
+ %\begin{table}[h!]
+   %\caption{Metadata variables used to describe the datasets stored in \texttt{popler.}}
+   %\label{Tab:S2}
+   %\begin{center}
+   %\begin{tabular}{p{10cm} p{5cm}}
     \begin{longtable}{p{10cm} p{5cm}}
       \caption{Metadata variables used to describe the datasets stored in \texttt{popler.}}
       \label{Tab:S2}\\
@@ -375,18 +373,17 @@ In a handful of cases, we removed single data rows from the original dataset. Th
 \texttt{knbid} & {Knowledge Network for Biocomplexity identifier.} \\
       \hline
     \end{longtable}
-  % \end{center}
-% \end{table}
-
-
-\newpage
-% \begin{table}[h!]
-  % \caption{LTER identification acronyms and their meaning as used in the \texttt{popler} database.}
-  % \label{Tab:S3}
-  % \begin{center}
-    \begin{longtable}{l l}
-      \caption{LTER identification acronyms and their meaning as used in the \texttt{popler} database.}
-      \label{Tab:S3}\\
+    %\end{tabular}
+   %\end{center}
+ %\end{table}     
+     
+\newpage     
+ \begin{table}[h!]
+%\begin{longtable}{p{10cm} p{5cm}}
+  \caption{LTER identification acronyms and their meaning as used in the \texttt{popler} database.}
+  \label{Tab:S3}
+   \begin{center}
+     \begin{tabular}{l l}
       \hline
       Variable & LTER name\\
       \hline
@@ -419,8 +416,11 @@ SEV & Sevilleta LTER  \\
 SGS & Shortgrass Steppe LTER \\                    
 VCR & Virginia Coastal Reserve LTER \\
       \hline
-    \end{longtable}
-  % \end{center}
-% \end{table}
+     \end{tabular}
+   \end{center}
+ \end{table}
+%\end{longtable}
+
+
 
 \end{document}
