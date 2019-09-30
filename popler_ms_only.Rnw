@@ -1,6 +1,8 @@
 \documentclass{article}
+\usepackage{longtable}
 \usepackage{geometry}
 \usepackage[round]{natbib}
+% \usepackage{natbib}
 \bibliographystyle{abbrvnat}
 \usepackage{graphicx}
 \geometry{a4paper}
@@ -10,15 +12,15 @@
 \usepackage[running]{lineno}
 \usepackage{setspace}
 \usepackage{courier}
-\usepackage{tabulary}
+% \usepackage{tabulary}
 \usepackage{hyperref}
 \doublespacing
 
 \newcommand{\tom}[1]{{\textit{\color{red}{[#1]}}}}
 \newcommand{\aldo}[1]{{\textit{\color{blue}{[#1]}}}}
 
-\title{\texttt{popler}: An R package for synthesis of population time series from long-term ecological research}
-\author[a,b,c]{Aldo Compagnoni\thanks{aldo.compagnoni@gmail.com}}
+\title{\texttt{popler}: an R package for extraction and synthesis of population time series from the long-term ecological research (LTER) network}
+  \author[a,b,c]{Aldo Compagnoni\thanks{aldo.compagnoni@gmail.com}}
 \author[a]{Andrew J. Bibian}
 \author[a]{Brad M. Ochocki}
 \author[b,c]{Sam Levin}
@@ -34,6 +36,16 @@
 \date{Running headline: The \texttt{popler} database and R package}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
+% \SweaveOpts{concordance=TRUE}
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
 
 <<setup,echo=F,warning=F,error=F,message=F>>=
 #install.packages("devtools")
@@ -70,7 +82,7 @@ lter_n     <- pplr_dictionary(lterid)[[1]] %>%
   
   \item To obviate these issues, we built a relational database, \texttt{popler}, and its \texttt{R} client, library("popler"). \texttt{popler} accommodates the vast majority of population data under a common structure, and without the need for aggregating raw observations. library("popler") is  designed for users unfamiliar with the structure of the database and with the SQL language. This \texttt{R} library allows users to identify, download, explore, and cite datasets salient to their needs.
   
-  \item We implemented popler as a PostgreSQL instance, where we stored population data originated by the United Stated Long Term Ecological Research (LTER) Network. Our focus on the US LTER data aims to leverage the untapped potential of this vast open data resource. The database currently contains \Sexpr{study_n} datasets from \Sexpr{lter_n} LTER sites. \texttt{popler} is designed to accommodate automatic updates of existing datasets, and to accommodate additional datasets from LTER as well as non-LTER studies.
+  \item We implemented popler as a PostgreSQL instance, where we stored population data originated by the United Stated Long Term Ecological Research (LTER) Network. Our focus on the US LTER data aims to leverage the potential of this vast open data resource. The database currently contains \Sexpr{study_n} datasets from \Sexpr{lter_n} LTER sites. \texttt{popler} is designed to accommodate automatic updates of existing datasets, and to accommodate additional datasets from LTER as well as non-LTER studies.
   
   \item The combination of the online database and the \texttt{R} library("popler") is a resource for data synthesis efforts in population ecology. The common structure of \texttt{popler} simplifies comparative analyses, and the availability of raw data confers flexibility in data analysis. library("popler") maximizes these opportunities by providing a user-friendly interface to the online database.
 
@@ -79,24 +91,28 @@ lter_n     <- pplr_dictionary(lterid)[[1]] %>%
 \linenumbers
 open long-term population data, US Long Term Ecological Research Network data, online database, database structure, PostgreSQL, R package, data synthesis, comparative analysis
 
+
 \newpage
 \section*{Introduction}
-\linenumbers
+% \linenumbers
 
 Population dynamics – changes in species’ abundance and composition through time and space – are central to ecology for both applied and fundamental reasons. Populations are the building blocks of ecological dynamics at higher scales of organization, and examples abound showing how the study of population ecology improves understanding in evolution \citep{Metcalf2007}, community ecology \citep{Levine2009}, and ecosystem ecology \citep{Medvigy2009,Fisher2018}. Given their central role, studies of population dynamics will be an essential component in the advances allowed by the flourishing culture of open access and data synthesis.
 
 The increase in freely available data is poised to change ecological science \citep{Laurance2016}. The rising focus on open data is clear in changing publishing standards, in the design of observational networks \citep{schimel2007neon}, and in the availability of previously proprietary data \citep{Kratz2003,Bechtold2005}. This deluge of open data holds promise to facilitate comparative analyses and to test the generality of ecological hypotheses. For population dynamics in particular, it is the increasing availability of long-term data that will likely yield the most substantial scientific advances, as long time series are required to detect trends in abundance \citep{Lindenmayer2012}, quantify temporal variance \citep{Compagnoni2016}, and identify endogenous \citep{Knape2012} or exogenous \citep{Hampton2013} drivers of population fluctuations.
 
-There are currently three public databases that provide time series of population data. These are the Global Population Dynamics Database \citep[GPDD,][]{Inchausti2001}, the Living Planet Index \citep{loh2005living}, and BioTIME \citep{dornelas2018biotime}. These databases are an important resource for population biologists \citep[e.g.,][]{Knape2012}, but their characteristics make them optimal for a specific set of analyses. For example, GPDD time series refer to vertebrate species only, and there is one observation of population size or density for each temporal replicate. Alternatively, the time series in BioTIME have only yearly temporal resolution, and they are limited to two levels of nested spatial replication.
+There are currently three public databases that provide time series of population data. These are the Global Population Dynamics Database \citep[GPDD,][]{Inchausti2001}, the Living Planet Index \citep{loh2005living}, and BioTIME \citep{dornelas2018biotime}. These databases are an important resource for population biologists \citep[e.g.,][]{Knape2012}, but their characteristics make them optimal for a specific set of analyses. For example, the GPDD could limit the flexibility and power of stastistical analyses, because its time series contain only one observation of population size per temporal replicate. Moreover, when comparing the LPI with BioTIME, data indicate worldwide biodiversity declines, while BioTIME data indicate stable biodiversity due to higher species turnover. This is likely due to the focus of the LPI on species of conservation concern \citep{dornelas2019balance}. The fact that BioTIME contains assemblage (i.e. multispecies) datasets might provide an advantage in assessing biodiversity trends. Finally, none of these three databases provides much experimental data. 
 
-One of the best sources of publicly available long-term data is the Long-Term Ecological Research (LTER) network. The LTER was founded in 1980 and grew from the original six sites to the current 28 sites throughout North America plus one each in Puerto Rico and Antarctica. Synthetic and comparative studies from the LTER network have made valuable contributions to ecological understanding \citep{Knapp2012}. However, the majority of LTER synthesis research has focused on ecological dynamics at the community (e.g. \cite{Wilcox2017}) and ecosystem (e.g. \cite{Knapp2001}) scales. Nevertheless, every LTER site collects population abundance data as one of its five core areas of continuous observations \citep{Callahan1984}. These population time series include both single- and multi-species studies. In our opinion these data, which have been accumulating since 1980, are under-used. 
+One of the best sources of publicly available long-term data is the Long-Term Ecological Research (LTER) network. The LTER was founded in 1980 and grew from the original six sites to, as of 2016, 28 sites throughout North America, Puerto Rico, French Polynesia, and Antarctica. Synthetic and comparative studies from the LTER network have made valuable contributions to ecological understanding \citep{Knapp2012}. However, the majority of LTER synthesis research has focused on ecological dynamics at the community (e.g. \cite{Wilcox2017}) and ecosystem (e.g. \cite{Knapp2001}) scales. Nevertheless, every LTER site collects population abundance data as one of its five core areas of continuous observations \citep{Callahan1984}. In our opinion these data, which have been accumulating since 1980, are under-used.
+
+LTER population data provides two distinct advantages compared to existing databases. First, both assemblage and single-species LTER dataset should be a resource in quantifying biodiversity. Assemblage datasets are expected to be an unbiased reflection of biodiversity trends \citep{dornelas2019balance}, and LTER single-species studies are generally not focused on species of conservation concern. Second, many of the analyses on LTER experiments were published a few years after the start of manipulations. Hence, analysis of updated data from these LTER experiments could provide novel scientific insights.
 
 One issue that may limit the use of LTER population data in synthetic, comparative studies is their heterogeneity. The structure of LTER data sets may be widely different, employing a variety of data types (counts of individuals, biomass estimates, percent cover, etc.), experimental designs driven by the priorities of particular PIs, and diverse replication schemes – idiosyncrasies that may be difficult to accommodate in a one-size-fits-all database. However, these challenges also present valuable opportunities. For example, the hierarchical replication structure of many LTER studies (e.g., subplots within plots within transects) can facilitate more sophisticated statistical investigation than would be possible with simpler, aggregated, or unreplicated data. %Ad-hoc software can greatly aid the discovery, querying, and comparison of datasets (e.g. \cite{Morris2013}). Dedicated software is therefore important to maximize the fruition, and the ultimate impact of publicly available datasets.
 
 To overcome the issues posed by heterogeneous data structures, we developed \texttt{popler} (POPulation dynamics in Long-term Ecological Research), an online database of LTER population studies. This database defines a common data structure that can accommodate in principle all population data, and its SQL environment allows updates whenever new data becomes available. We also developed a companion R package to facilitate the identification, access, and manipulation of raw and heterogeneous population data. Our goals here are to provide introductions to the database and package. We focus on LTER time series, but expanding \texttt{popler} beyond the LTER network is a priority for future development.
 
+
 \section*{The \texttt{popler} database}
-To combine population data from the LTER network using a common structure, we identified a set of relevant variables (Table \ref{Tab:vars}) and organized them into a relational database (Fig. \ref{Fig:schema}). We store ``raw'' data, meaning that we have not modified, edited, or aggregated the original observations. 
+To combine population data from the LTER network using a common structure, we identified a set of relevant variables (Table \ref{Tab:vars}) and organized them into a relational database. Here, we present the structure of the database in Fig. \ref{Fig:schema}, and we provide a simplified entity relationship diagram (ERD) in the supplementary material (Fig. \ref{Fig:simple_ERD}). In \texttt{popler} we stored ``raw'' data, meaning that we have not modified, edited, or aggregated the original observations.
 
 For inclusion in \texttt{popler}, we only considered studies that included (1) repeated observations of populations or individuals through time, (2) at least five population censuses (as of database creation in 2017), and (3) taxonomic information associated with abundance observations (e.g., we excluded time series of functional groups). We provide technical details of database creation in Appendix S1.
 
@@ -130,31 +146,33 @@ n_fung     <- Reduce(function(...) rbind(...), fung_spp$taxas) %>%
                 unique %>% 
                 nrow
 @
-The \texttt{popler} database currently contains data from \Sexpr{tot_studies} studies (\Sexpr{n_exp} of which are experimental) representing \Sexpr{tot_years} cumulative years of observations with a mean study duration of \Sexpr{mean_dur} years. \texttt{popler} contains data from \Sexpr{n_plant} plant species, \Sexpr{n_anim} animal species, and \Sexpr{n_fung} fungal species.
+The \texttt{popler} database currently contains data from \Sexpr{tot_studies} studies (\Sexpr{n_exp} of which are experimental) representing \Sexpr{tot_years} cumulative years of observations. On average, studies in \texttt{popler} contain 10.5 years of data (median: 7), with the longest study containing 67. The sampling designs are predominantly yearly (49\%) and sub-yearly (44\%), and only 6\% of designs sampled populations irregularly or less often than yearly. \texttt{popler} also contains abundant spatial replication, with studies containing a mean of 295 (median: 72) unique spatial replicates distributed across an average of 2.4 (median: 2) nested spatial replication levels. Finally, \texttt{popler} contains data from \Sexpr{n_plant} plant species, \Sexpr{n_anim} animal species, and \Sexpr{n_fung} fungal species.
+
 
 \subsection*{Population data}
-We define ``population data'' as time-series of observations on the size or density of a population of a species or other taxonomic unit. Observations of population size are stored in a variable called \texttt{abundance\textunderscore observation} and can be measured as a count, biomass, density, or cover. These four types of population data are stored in the homonymous tables of the database (Fig. \ref{Fig:schema}A).
+We define ``population data'' as time-series of observations on the size or density of a population of a species or other taxonomic unit. Observations of population size are stored in a variable called \texttt{abundance\textunderscore observation} and can be measured as a count, biomass, density, or cover. These four types of population data are stored in the namesake tables of the database (Fig. \ref{Fig:schema}A).
 
-The population datasets contained in popler are always replicated temporally. Temporal replicates are identified with up to three variables: \texttt{year}, \texttt{month}, and \texttt{day}. Population data are also almost always spatially replicated, and spatial replicates are often nested, where for example a study might include separate sites, each of which contains intermediate spatial replicates (e.g. a transect, a block), which in turn contain the smallest spatial replicate at which observations are made (e.g. a plot, a quadrat). The hypothetical study described above would have three nested levels of spatial replication, identified by three numbered \texttt{spatial\textunderscore replication} variables. In \texttt{popler}, we accommodate data sets with up to five spatial replication levels (Table \ref{Tab:vars}). We call the first and therefore largest spatial replicate ``study site'' (Fig. \ref{Fig:schema}C). Note that this does not refer to the LTER site, one of the 28 NSF-supported locations (Table S3).
+The population datasets contained in popler are always replicated temporally. Temporal replicates are identified with up to three variables: \texttt{year}, \texttt{month}, and \texttt{day}. Population data are also almost always spatially replicated, and spatial replicates are often nested, where for example a study might include separate sites, each of which contains intermediate spatial replicates (e.g. a transect, a block), which in turn contain the smallest spatial replicate at which observations are made (e.g. a plot, a quadrat). The hypothetical study described above would have three nested levels of spatial replication, identified by three numbered \texttt{spatial\textunderscore replication} variables. In \texttt{popler}, we accommodate data sets with up to five spatial replication levels (Table \ref{Tab:vars}). We call the first and therefore largest spatial replicate ``study site'' (Fig. \ref{Fig:schema}C). Note that this does not refer to the LTER site, one of the 28 NSF-supported locations (Table \ref{Tab:S3}).
 
 \texttt{popler} contains both observational and experimental studies. Experimental datasets contain information on one or more experimental treatments. Popler accommodates information on up to three experimental treatments, identified by three numbered \texttt{treatment\textunderscore type} variables (Table \ref{Tab:vars}). 
 
-Most datasets also contain one or more variables in addition to the ones described above which we store in a list of variables called \texttt{covariates}. Covariates can be useful for time series that contain information on population structure. In these datasets, observations on population size are grouped based on subdivisions of the entire population, such as males and females, large and small individuals, etc. We identify these datasets through the variable \texttt{structured\textunderscore data}.
+Most datasets also contain one or more variables in addition to the ones described above which we store in a character variable called \texttt{covariates} (Table \ref{Tab:vars}). These are variables that do not conform to our data model. \texttt{covariates} stores in each row, the content of an arbitrary number of such non-conforming variables. \texttt{covariates} can be useful, for example, for time series that contain information on population structure. In these datasets, observations on population size are grouped based on subdivisions of the entire population, such as males and females, large and small individuals, etc. We identify these datasets through a variable in the metadata table called \texttt{structured\textunderscore data} (Table \ref{Tab:S2}).
 
-Finally, in addition to time series of abundance, \texttt{popler} contains individual-level data. This data provides information on the attributes of the individuals, or a subset thereof, that make up a population. We store this information in a dedicated table (''Individual'', Fig. \ref{Fig:schema}A). As individual attributes we consider variables that describe identity, size, sex, life stage or status (e.g. reproductive or non-reproductive). We refer to these individual attributes with the term ``structure'': \texttt{popler} accommodates data sets that measure up to four types of structure simultaneously. We store these data in up to four numbered \texttt{structure\textunderscore type} variables. While these data are not population time series; we chose to include them in \texttt{popler} because they provide information on demographic transitions that can be used to derive estimates of population growth. Moreover, in the cases of datasets that sample all of the individuals in a population, individuals can be aggregated (i.e. summed) as a measure of population size.
+Finally, in addition to time series of abundance, \texttt{popler} contains individual-level data. This data provides information on the attributes of the individuals, or a subset thereof, that make up a population. We store this information in a dedicated table (''Individual'', Fig. \ref{Fig:schema}A). As individual attributes we consider variables that describe identity, size, sex, life stage or status (e.g. reproductive or non-reproductive). We refer to these individual attributes with the term ``structure'': \texttt{popler} accommodates data sets that measure up to four types of structure simultaneously. We store these data in up to four numbered \texttt{structure\textunderscore type} variables. While these data are not population time series, we chose to include them in \texttt{popler} because they provide information on demographic transitions that can be used to derive estimates of population growth. Moreover, in the cases of datasets that sample all of the individuals in a population, individuals can be aggregated (i.e. summed) as a measure of population size.
+
 
 \subsection*{Taxonomic information}
 Each observation corresponds to a taxonomic unit (Fig. \ref{Fig:schema}B), typically a species or a genus, but also include data that refer to a higher taxonomic rank, such as family, or order. %The majority of data sets provided by the LTER include multiple taxa, so each observation regarding population size or individual attribute is associated with a unique taxonomic unit.--seems redundant
-\texttt{popler} provides 15 taxonomic ranks, and two additional variables that refer to how taxonomic information is recorded in the original datasets. The additional variables are \texttt{sppcode}, which are taxon-specific alphanumeric codes, and \texttt{common\textunderscore name}, the common name of each taxonomic unit (Table S1). \texttt{popler} also allows to store accepted taxonomic information in an additional table (Fig. \ref{Fig:schema}B). This table accounts for ambiguities contained in the raw taxonomic data, which originate by the dynamic changes in species classifications \citep{Chamberlain2013}. Further versions of popler will populate this second table with the accepted taxonomic units (which include  taxonomic information above the level of genus) provided by the R package \texttt{taxize} \citep{Chamberlain2013}.
+\texttt{popler} provides 15 taxonomic ranks, and two additional variables that refer to how taxonomic information is recorded in the original datasets. The additional variables are \texttt{sppcode}, which are taxon-specific alphanumeric codes, and \texttt{common\textunderscore name}, the common name of each taxonomic unit (Table S1). \texttt{popler} also can store accepted taxonomic information in an additional table (Fig. \ref{Fig:schema}B). This table accounts for ambiguities contained in the raw taxonomic data, which originate by the dynamic changes in species classifications \citep{Chamberlain2013}. Further versions of popler will populate this second table with the accepted taxonomic units (which include  taxonomic information above the level of genus) provided by the R package \texttt{taxize} \citep{Chamberlain2013}.
 
 \subsection*{Study site}
 We stored the locations of datasets by recording the latitude (\texttt{lat\textunderscore study\textunderscore site}) and longitude (\texttt{lng\textunderscore study\textunderscore site}) of study sites (Fig. \ref{Fig:schema}C). Storing this information in a separate table allows for explicit connections between independent data sets collected at the same locations within LTER sites. 
 
 \subsection*{Metadata}
-The metadata table (Table S2) provides information on temporal and spatial replication, and study design (Fig. \ref{Fig:schema}D), including title, link to online metadata, contact information for data originators, and the type of data provided by the dataset (i.e., which of the five tables in Fig. \ref{Fig:schema}A the data is stored in). All remaining metadata is related to the variables stored in the tables of \ref{Fig:schema}A and \ref{Fig:schema}B. First, we provide the years elapsed between the first and last observation (\texttt{duration\textunderscore years}), and the sampling frequency (\texttt{samplefreq}). Second, we provide the number of levels of nested spatial replicates, and the number of replicates for each spatially nested level. Third, we show whether studies focus on a single species or on multiple species through the \texttt{community} variable. Fourth, we identify studies as observational or experimental (\texttt{studytype}). If a study is experimental, we provide information on the type of treatments imposed by the study (\texttt{treatment\textunderscore type\textunderscore n}) and, when available, which one is the control treatment (\texttt{control\textunderscore group}). Finally, when abundance data stored in the \texttt{abundance\textunderscore observation} variable is aggregated across space or time, rather than raw, we consider these data as derived (\texttt{derived}).
+The metadata table (Table \ref{Tab:S2}) provides information on temporal and spatial replication, and study design (Fig. \ref{Fig:schema}D), including title, link to online metadata, contact information for data originators, and the type of data provided by the dataset (i.e., which of the five tables in Fig. \ref{Fig:schema}A the data is stored in). All remaining metadata is related to the variables stored in the tables of \ref{Fig:schema}A and \ref{Fig:schema}B. First, some population datasets subdivide the population in groups that share the same characteristic (e.g. sex, developmental stage, age). These datasets, however, are not individual data (Fig. \ref{Fig:schema}D): we flag them through the variable \texttt{structured\textunderscore data}. Second, we provide the years elapsed between the first and last observation (\texttt{duration\textunderscore years}), and the sampling frequency (\texttt{samplefreq}). Third, we provide the number of levels of nested spatial replicates, and the number of replicates for each spatially nested level. Fourth, we show whether studies focus on a single species or on multiple species through the \texttt{community} variable. Fifth, we identify studies as observational or experimental (\texttt{studytype}). If a study is experimental, we provide information on the type of treatments imposed by the study (\texttt{treatment\textunderscore type\textunderscore n}) and, when available, which one is the control treatment (\texttt{control\textunderscore group}). Finally, we report information on the data stored in the \texttt{abundance\textunderscore observation} variable: its units of measure (\texttt{samplingunits}), the area over which this abundance data was observed\\ (\texttt{spatial\textunderscore replication\textunderscore level\textunderscore n\textunderscore extent} and\\ \texttt{spatial\textunderscore replication\textunderscore level\textunderscore n\textunderscore extent\textunderscore units}), and in case the data was aggregated across space or time we flag these data as derived (\texttt{derived}).
 
 \section*{The \texttt{popler} package}
-The \texttt{popler} \texttt{R} package consists of three core functions that allow users to browse and retrieve data from the database (Fig. \ref{Fig:pack_funs}). In order of intended use, these functions are: \texttt{pplr\textunderscore dictionary()}, \texttt{pplr\textunderscore browse()}, and \texttt{pplr\textunderscore get\textunderscore data()}.
+The \texttt{popler} \texttt{R} package consists of three core functions that allow users to browse and retrieve data from the database (Fig. \ref{Fig:pack_funs}). In order of intended use, these functions are: \texttt{pplr\textunderscore dictionary()}, \texttt{pplr\textunderscore browse()}, and \texttt{pplr\textunderscore getdata()}.
 
 \subsection*{The \texttt{pplr\textunderscore dictionary()} function}
 The dictionary function is a good place for new users to begin working with \texttt{popler} (Fig. \ref{Fig:pack_funs}). With no arguments provided, this function returns a subset of the most useful metadata variables associated with each  dataset (Fig. \ref{Fig:schema}). Providing argument \texttt{full\textunderscore tbl = TRUE} returns all \Sexpr{nrow(pplr_dictionary(full_tbl = T))} metadata variables. Each one of these variable names can be provided as an argument to \texttt{pplr\textunderscore dictionary()}, which then returns the possible unique values of the variable. For example, \texttt{pplr\textunderscore dictionary(lterid)} returns the three letter codes of the LTER network sites included in \texttt{popler}. For numeric variables such as \texttt{duration\textunderscore years}, \texttt{pplr\textunderscore dictionary()} returns a summary including quantiles, mean, and median. 
@@ -171,7 +189,8 @@ This operation will create the object \texttt{LTER\textunderscore 30}, which pro
 LTER_30_plants <- pplr_browse( duration_years > 29 & 
                                kingdom == "Plantae")
 @
-To facilitate data exploration, \texttt{pplr\textunderscore browse()} output can be printed in a more readable settings by providing \texttt{report = TRUE} as an argument, which opens up a formatted html document. The metadata provided by \texttt{pplr\textunderscore browse()} not only contains information on the characteristics of a study but also information on how to cite the study, its unique identifiers, including digital object identifier (DOI), and the contact information of study PIs. 
+To facilitate data exploration, \texttt{pplr\textunderscore browse()} output can be printed in a more readable setting by providing \texttt{report = TRUE} as an argument, which opens up a formatted html document. The metadata provided by \texttt{pplr\textunderscore browse()} not only contains information on the characteristics of a study but also information on how to cite the study, unique identifiers such as its digital object identifier (DOI), and the contact information of study PIs. 
+
 
 \subsection*{The \texttt{pplr\textunderscore get\textunderscore data()} function}
 
@@ -189,19 +208,24 @@ In the future, there are opportunities to increase the size of \texttt{popler} a
 We thank Trevor Drees and Michael Saucedo for assistance in database development, Maurizio Compagnoni for assistance in database management, and Scott Chamberlain for developing the API to query the online database. Support for database and package development was provided by the US National Science Foundation to TEXM (DEB-1543651). This research was additionally supported by a Julian Huxley Faculty Fellowship from Rice University and a Faculty Research Grant awarded by the Committee on Research from the University of California, Santa Cruz (KZ). The LTER network is supported by the US National Science Foundation.
 
 \section*{Authors' contributions}
-AC, AB, KZ, MO, TEXM designed and built the database. AC AB, KZ, BD, SM, and TEXM designed and built the R package. AC and TEXM led the writing of the manuscript. All authors contributed to manuscript drafts and gave final approval for publication.
+AC, AJB, KZ, BMO, TEXM designed and built the database. AC, AJB, KZ, BMD, SL, and TEXM designed and built the R package. AC and TEXM led the writing of the manuscript. All authors contributed to manuscript drafts and gave final approval for publication.
 
 \section*{Data Availability}
 The \texttt{popler} R package is publicly available at https://github.com/ropensci/popler.
 
+\newpage
 \bibliography{popler}
 
 \newpage
-\begin{table}[h!]
+ \begin{table}[h!]
+%\begin{longtable}{p{10cm} p{5cm}}
   \caption{Variables used to store population or individual data in \texttt{popler}.}
   \label{Tab:vars}
-  \begin{center}
-    \begin{tabular}{l p{8cm}}
+
+  % \caption{Variables used to store population or individual data in \texttt{popler}.}
+  % \label{Tab:vars}
+   \begin{center}
+     \begin{tabular}{l p{8cm}}
       \hline
       Variable & Description \\
       \hline
@@ -210,13 +234,14 @@ The \texttt{popler} R package is publicly available at https://github.com/ropens
       \texttt{month} & Month of observation\\
       \texttt{year} & Year of observation\\
       \texttt{spatial\textunderscore replicate\textunderscore n} & {The $n^{th}$ level of spatial replication, where \texttt{spatial\textunderscore replicate\textunderscore 1} is the study site. \texttt{popler} accommodates up to five levels of spatial replication.}\\
-      \texttt{treatment\textunderscore type\textunderscore n} & {For datasets originating from an experimental study, the $n^{th}$ treatment. \texttt{popler} popler accommodates up to three treatments.}\\
+      \texttt{treatment\textunderscore type\textunderscore n} & {For datasets originating from an experimental study, the $n^{th}$ treatment. \texttt{popler} accommodates up to three treatments.}\\
       \texttt{covariates} & Ancillary observations that do not fall into the standard schema of \texttt{popler}.\\
       \texttt{structure\textunderscore type\textunderscore n} & {For individual data, these variables measure the $n^{th}$ attribute of individuals (identity, size, sex, status, stage). \texttt{popler} accommodates up to four structure types per dataset.}\\
       \hline
-    \end{tabular}
-  \end{center}
-\end{table}
+     \end{tabular}
+   \end{center}
+ \end{table}
+%\end{longtable}
 
 \newpage
 \begin{figure}[h!]
@@ -227,11 +252,12 @@ The \texttt{popler} R package is publicly available at https://github.com/ropens
   \end{center}
 \end{figure}
 
+
 \newpage
 \begin{figure}[h!]
   \begin{center}
     \includegraphics[scale=0.4]{pack_funs}
-    \caption{Suggested workflow when using the \texttt{popler} R package to interface with the homonymous online database. The function \texttt{pplr\textunderscore dictionary()} refers to the variables of the metadata that describe the data sets contained in \texttt{popler}. \texttt{pplr\textunderscore dictionary()} describes these variables and returns their possible values. This information advises which criteria to use when subsetting \texttt{popler}. The user can provide a criterion (that is, a logical statement) to browse the metadata, using \texttt{pplr\textunderscore browse()}, or to download data using \texttt{pplr\textunderscore get\textunderscore data()}. Moreover, the output of \texttt{pplr\textunderscore get\tex tunderscore data()} (a data frame) can be the argument of three ancillary functions: \texttt{pplr\textunderscore metadata\textunderscore url()} opens the webpage containing the original dataset and their associated online metadata. \texttt{pplr\textunderscore cov\textunderscore unpack()} can be used to format the covariates contained in a raw data object into separate columns of a data frame. Finally, \texttt{pplr\textunderscore citation()} provides a citation for the downloaded data set(s).}
+    \caption{Suggested workflow when using the \texttt{popler} R package to interface with the popler online database. The function \texttt{pplr\textunderscore dictionary()} refers to the variables of the metadata that describe the data sets contained in \texttt{popler}. \texttt{pplr\textunderscore dictionary()} describes these variables and returns their possible values. This information advises which criteria to use when subsetting \texttt{popler}. The user can provide a criterion (that is, a logical statement) to browse the metadata, using \texttt{pplr\textunderscore browse()}, or to download data using \texttt{pplr\textunderscore get\textunderscore data()}. Moreover, the output of \texttt{pplr\textunderscore get\textunderscore data()} (a data frame) can be the argument of three ancillary functions: \texttt{pplr\textunderscore metadata\textunderscore url()} opens the webpage containing the original dataset and their associated online metadata. \texttt{pplr\textunderscore cov\textunderscore unpack()} can be used to format the covariates contained in a raw data object into separate columns of a data frame. Finally, \texttt{pplr\textunderscore citation()} provides a citation for the downloaded data set(s).}
     \label{Fig:pack_funs}
   \end{center}
 \end{figure}
