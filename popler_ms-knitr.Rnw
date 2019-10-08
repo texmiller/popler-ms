@@ -3,7 +3,6 @@
 \usepackage{longtable}
 \usepackage{geometry}
 \usepackage[round]{natbib}
-% \usepackage{natbib}
 \bibliographystyle{abbrvnat}
 \usepackage{graphicx}
 \geometry{a4paper}
@@ -37,7 +36,6 @@
 \date{Running headline: The \texttt{popler} database and R package}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 % \SweaveOpts{concordance=TRUE}
 
 <<include=FALSE>>=

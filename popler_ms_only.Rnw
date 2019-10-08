@@ -2,7 +2,6 @@
 \usepackage{longtable}
 \usepackage{geometry}
 \usepackage[round]{natbib}
-% \usepackage{natbib}
 \bibliographystyle{abbrvnat}
 \usepackage{graphicx}
 \geometry{a4paper}
@@ -36,7 +35,6 @@
 \date{Running headline: The \texttt{popler} database and R package}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 % \SweaveOpts{concordance=TRUE}
 
 <<include=FALSE>>=
@@ -121,7 +119,7 @@ For inclusion in \texttt{popler}, we only considered studies that included (1) r
 sum_tab       <- pplr_browse()
 # "easy" metrics
 tot_studies   <- nrow( pplr_browse() )
-n_exp         <- pplr_browse() %>% subset(studytype=="exp") %>% count()
+n_exp         <- pplr_browse() %>% subset(studytype=="exp") %>% nrow()
 n_datatype    <- pplr_browse() %>% count( datatype)
 tot_years     <- pplr_browse() %>% .$duration_years %>% sum(na.rm=T)
 mean_dur      <- round(mean(pplr_browse()$duration_years,na.rm=T),2)
